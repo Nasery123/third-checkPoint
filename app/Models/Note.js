@@ -8,8 +8,8 @@ export class Note {
     this.user = data.user
     this.noteBody = data.noteBody
     this.title = data.title
-    this.createdAt = data.createdAt || new Date()
-    this.updatedAt = data.updatedAt || new Date()
+    // this.createdAt = data.createdAt || new Date()
+    // this.updatedAt = data.updatedAt || new Date()
     this.date = data.date ? new Date(data.date) : new Date()
     this.for = data.for
     this.unlocked = false
@@ -20,7 +20,7 @@ export class Note {
     return `
       <h1>Create a Note</h1>
       <form onsubmit="app.notesController.CreateNote()">
-        <input minlength="3" maxlength="15" class="form-control" name="title" type="text"></input>
+        <input required minlength="3" maxlength="15" class="form-control" name="title" type="text"></input>
         <button type="submit" class="btn btn-success px-1 my-1">CREAT NOTE</button>
       </form>`
   }
@@ -33,10 +33,11 @@ export class Note {
           <div>
             <p onclick="app.notesController.setActive('${this.id}')">${this.title}
             </p>
-            
+
           </div>
 
-        </div>`
+        </div>
+        `
   }
 
   get ActiveNoteTemplate() {
@@ -45,7 +46,8 @@ export class Note {
     // <button type="submit" class="btn btn-secondary">+</button>
     //   </form>
     return `
-          <div class="col-md-4">
+    <hr>
+    <div class="col-md-4">
 
 
             <div class="row">
@@ -58,7 +60,7 @@ export class Note {
                 </div>
 
                 <form action="" onsubmit="app.notesController.saveNote()" class="col-8">
-                <textarea class="noteBody" type="text" name="noteBody" id="noteBody" cols="30" rows="20" class=" inp form-control-lg my-1" placeholder="create your note here" style="color:${this.color}">${this.noteBody}
+                <textarea class="noteBody" type="text" name="noteBody" id="noteBody" cols="50" rows="25" class=" inp form-control-lg my-1" placeholder="create your note here" style="color:${this.color}">${this.noteBody}
                 </textarea>
                 <input type="color" name="color">
                 <button class="btn btn-success"  type="submit">SUBMIT</button>
