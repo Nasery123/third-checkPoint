@@ -1,4 +1,5 @@
 import { appState } from "../AppState.js"
+import { Note } from "../Models/Note.js"
 import { notesService } from "../Services/NotesServices.js"
 import { getFormData } from "../Utils/FormHandler.js"
 import { Pop } from "../Utils/Pop.js"
@@ -6,8 +7,10 @@ import { setHTML } from "../Utils/Writer.js"
 
 
 function _drawaddNoteTemplate() {
-    setHTML('addtemplate', appState.activeNote?.Addtemplate)
+
+    setHTML('addtemplate', Note.Addtemplate())
 }
+
 
 function _drawNotesTemplate() {
     // window.event.preventDefault()
@@ -20,6 +23,9 @@ function _drawNotesTemplate() {
     let filterNotes = notes.filter(n => n.user == appState.user)
 
     filterNotes.forEach(n => template += n.NotesTemplate)
+    let totalNotes = filterNotes.length;
+    document.getElementById("total-notes").innerText = totalNotes;
+
 
     setHTML('notes', template)
 }
@@ -39,6 +45,7 @@ function _drawActiveNote() {
 
 export class NotesController {
     constructor() {
+        _drawaddNoteTemplate()
         //console.log('your controller is connected')
         appState.on('user', _drawNotesTemplate)
         //console.log('here is after draw')
@@ -54,10 +61,12 @@ export class NotesController {
 
 
     CreateNote() {
+        debugger
         // @ts-ignore
         window.event.preventDefault()
-        let form = event.target
+        let form = event?.target
         let formData = getFormData(form)
+        console.log(formData)
         // @ts-ignore
         formData.user = appState.user
         // console.log('here is your use name part')
@@ -65,7 +74,7 @@ export class NotesController {
         // form.removeEventListener()
         // @ts-ignore
         form.reset()
-        document.querySelector('.reportBody').focus()
+        document.querySelector('.noteBody').focus()
     }
 
     addNoteTemplate() {
@@ -85,8 +94,12 @@ export class NotesController {
     saveNote() {
         window.event.preventDefault()
         let report = document.getElementById('noteBody')
+        let form = event.target
+        console.log(form)
+        let formData = getFormData(form)
+        console.log(formData)
         let reportBody = report.value
-        notesService.saveNote(reportBody)
+        notesService.saveNote(formData)
     }
 
 

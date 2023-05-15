@@ -8,20 +8,20 @@ export class Note {
     this.user = data.user
     this.noteBody = data.noteBody
     this.title = data.title
-    this.date = data.date
-
+    this.createdAt = data.createdAt || new Date()
+    this.updatedAt = data.updatedAt || new Date()
+    this.date = data.date ? new Date(data.date) : new Date()
     this.for = data.for
     this.unlocked = false
-
-
+    this.color = data.color
   }
 
-  get Addtemplate() {
+  static Addtemplate() {
     return `
       <h1>Create a Note</h1>
       <form onsubmit="app.notesController.CreateNote()">
-        <textarea type="text"></textarea>
-        <button type="submit" class="btn btn-success px-1 my-1">log in</button>
+        <input minlength="3" maxlength="15" class="form-control" name="title" type="text"></input>
+        <button type="submit" class="btn btn-success px-1 my-1">CREAT NOTE</button>
       </form>`
   }
 
@@ -30,34 +30,39 @@ export class Note {
     return `
 
         <div class="col-12">
-            <h3>${this.user}</h3>
-
           <div>
-            <p onclick="app.notesController.setActive('${this.id}')">${this.noteBody}
+            <p onclick="app.notesController.setActive('${this.id}')">${this.title}
             </p>
-            <input type="color" name="color">
+            
           </div>
 
         </div>`
   }
 
   get ActiveNoteTemplate() {
+    // <form onsubmit="app.notesController.CreateNote()">
+    // <input type="text" name="title" class="form-control">
+    // <button type="submit" class="btn btn-secondary">+</button>
+    //   </form>
     return `
           <div class="col-md-4">
-          <input class="input">
-          <button class="btn btn-secondary">+</button>
+
+
             <div class="row">
-              <h1>${this.for}</h1>
+
               <div class="col-4">
                 <p>${this.title}</p>
-                 <input type="color" name="color">
-              </div>
+                <p>created: ${this.ComputedDate}</p>
+                <p style="color:${this.color}"> note Color: </p>
 
-              <form action="" class="col-8">
-                <textarea type="text" name="noteBody" id="noteBody" cols="30" rows="20" class=" inp form-control-lg my-1" placeholder="create your note here">${this.noteBody}
+                </div>
+
+                <form action="" onsubmit="app.notesController.saveNote()" class="col-8">
+                <textarea class="noteBody" type="text" name="noteBody" id="noteBody" cols="30" rows="20" class=" inp form-control-lg my-1" placeholder="create your note here" style="color:${this.color}">${this.noteBody}
                 </textarea>
-                <button class="btn btn-success" onclick="app.notesController.saveNote()" type="sub
-              ">SUBMIT</button>
+                <input type="color" name="color">
+                <button class="btn btn-success"  type="submit">SUBMIT</button>
+              <button type="button" class="btn btn-danger" onclick="app.notesController.deleteNote('${this.id}')">DELET</button>
               </form>
 
             </div>
@@ -68,7 +73,9 @@ export class Note {
 
 
   get ComputedDate() {
-    return (this.date.getMonth() + 1) + '/' + (this.date.getDate())
-      + '/' + (this.date.getFullYear())
+    let date = this.date
+    console.log(date, 'computed date is here')
+    return (date.getMonth() + 1) + '/' + (date.getDate())
+      + '/' + (date.getFullYear())
   }
 }

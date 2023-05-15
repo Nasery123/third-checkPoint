@@ -18,10 +18,11 @@ class NotesService {
     }
 
 
-    saveNote(noteBody) {
+    saveNote(formData) {
 
         let activeNote = appState.activeNote
-        activeNote.noteBody = noteBody
+        activeNote.noteBody = formData.noteBody
+        activeNote.color = formData.color
         console.log('here is your note body', activeNote)
         //activeNote.unlock = false;
         appState.emit('activeNote')
