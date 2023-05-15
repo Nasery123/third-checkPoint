@@ -3,7 +3,7 @@ import { Note } from "../Models/Note.js";
 import { saveState } from "../Utils/Store.js";
 
 function _saveNotes() {
-    saveState(('notes', appState.notes))
+    saveState('notes', appState.notes)
 }
 class NotesService {
     CreateNote(formData) {
@@ -18,29 +18,29 @@ class NotesService {
     }
 
 
-    // saveNote(noteBody) {
+    saveNote(noteBody) {
 
-    //     let activeNote = appState.activeNote
-    //     activeNote.noteBody = noteBody
-    //     console.log('here is your note body', activeNote)
-    //     //activeNote.unlock = false;
-    //     appState.emit('activeNote')
-    //     _saveNotes()
-    // }
+        let activeNote = appState.activeNote
+        activeNote.noteBody = noteBody
+        console.log('here is your note body', activeNote)
+        //activeNote.unlock = false;
+        appState.emit('activeNote')
+        _saveNotes()
+    }
 
 
 
-    // setActive(noteID) {
-    //     let foundNote = appState.notes.find(n => n.id == noteID)
-    //     console.log('here is your active note', foundNote)
-    //     appState.activeNote = foundNote;
-    //     console.log('appstate AN', appState.activeNote)
-    // }
+    setActive(noteID) {
+        let foundNote = appState.notes.find(n => n.id == noteID)
+        console.log('here is your active note', foundNote)
+        appState.activeNote = foundNote;
+        console.log('appstate AN', appState.activeNote)
+    }
 
 
     deleteNote(noteId) {
         let noteToDelete = appState.notes.find(n => n.id == noteId)
-        console.log('delete THAT Note', carToDelete)
+        console.log('delete THAT Note', noteToDelete)
 
         appState.notes = appState.notes.filter(n => n.id != noteId)
         _saveNotes()

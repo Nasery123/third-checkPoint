@@ -4,8 +4,8 @@ import { UsersController } from "./Controllers/UsersController.js";
 
 class App {
   //valuesController = new ValuesController();
-  notesController = new NotesController();
   usersController = new UsersController();
+  notesController = new NotesController();
 }
 
 window["app"] = new App();
