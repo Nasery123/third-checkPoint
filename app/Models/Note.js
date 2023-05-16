@@ -18,9 +18,9 @@ export class Note {
 
   static Addtemplate() {
     return `
-      <h1>Create a Note</h1>
+      <h3>CREATE NOTE</h3>
       <form onsubmit="app.notesController.CreateNote()">
-        <input required minlength="3" maxlength="15" class="form-control" name="title" type="text"></input>
+        <input required minlength="3" maxlength="15" class="form-control" name="title" type="text" placeholder="Title should be 3-15 Character"></input>
         <button type="submit" class="btn btn-success px-1 my-1">CREAT NOTE</button>
       </form>`
   }
@@ -31,7 +31,7 @@ export class Note {
 
         <div class="col-12">
           <div>
-            <p onclick="app.notesController.setActive('${this.id}')">${this.title}
+            <p onclick="app.notesController.setActive('${this.id}')">${this.title.toUpperCase()}
             </p>
 
           </div>
