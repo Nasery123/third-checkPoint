@@ -31,7 +31,7 @@ export class Note {
 
         <div class="col-12">
           <div>
-            <p onclick="app.notesController.setActive('${this.id}')">${this.title.toUpperCase()}
+            <p class="total btn" onclick="app.notesController.setActive('${this.id}')">${this.title.toUpperCase()}
             </p>
 
           </div>
@@ -47,7 +47,7 @@ export class Note {
     //   </form>
     return `
     <hr>
-    <div class="col-md-4">
+    <div class="col-md-4 total">
 
 
             <div class="row">
@@ -63,8 +63,10 @@ export class Note {
                 <textarea class="noteBody" type="text" name="noteBody" id="noteBody" cols="50" rows="25" class=" inp form-control-lg my-1" placeholder="create your note here" style="color:${this.color}">${this.noteBody}
                 </textarea>
                 <input type="color" name="color">
+                <div class="d-flex justify-content-between">
                 <button class="btn btn-success"  type="submit">SUBMIT</button>
-              <button type="button" class="btn btn-danger" onclick="app.notesController.deleteNote('${this.id}')">DELET</button>
+              <button type="button" class="btn btn-danger" onclick="app.notesController.deleteNote('${this.id}')"><i class="mdi mdi-delete"></i></button>
+              </div>
               </form>
 
             </div>
